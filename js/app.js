@@ -17,9 +17,7 @@ function mostrarComentarios() {
         // Añadir botón para eliminar
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Eliminar';
-        deleteButton.addEventListener('click', function() {
-            eliminarComentario(comentario.id);
-        });
+        deleteButton.addEventListener('click', () => eliminarComentario(comentario.id));
         listItem.appendChild(deleteButton);
 
         listaComentarios.appendChild(listItem);
@@ -28,7 +26,6 @@ function mostrarComentarios() {
 
 // Función para agregar un comentario
 function agregarComentario(event) {
-    // Evitar que la página se recargue al presionar Enter
     event.preventDefault();
 
     const nuevoComentario = {
