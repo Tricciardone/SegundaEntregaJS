@@ -6,8 +6,31 @@ const form = document.getElementById('commentForm');
 const inputComentario = document.getElementById('commentInput');
 const listaComentarios = document.getElementById('commentList');
 
+// Función para mostrar los comentarios en la lista
+function mostrarComentarios() {
+    listaComentarios.innerHTML = '';
+
+    comentarios.forEach(comentario => {
+        const listItem = document.createElement('li');
+        listItem.textContent = comentario.contenido;
+
+        // Añadir botón para eliminar
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.addEventListener('click', function() {
+            eliminarComentario(comentario.id);
+        });
+        listItem.appendChild(deleteButton);
+
+        listaComentarios.appendChild(listItem);
+    });
+}
+
 // Función para agregar un comentario
-function agregarComentario() {
+function agregarComentario(event) {
+    // Evitar que la página se recargue al presionar Enter
+    event.preventDefault();
+
     const nuevoComentario = {
         id: Date.now(),
         contenido: inputComentario.value,
@@ -25,20 +48,5 @@ function eliminarComentario(id) {
     mostrarComentarios();
 }
 
-// Función para mostrar los comentarios en la lista
-function mostrarComentarios() {
-    listaComentarios.innerHTML = '';
-
-    comentarios.forEach(comentario => {
-        const listItem = document.createElement('li');
-        listItem.textContent = comentario.contenido;
-
-        // Añadir botón para eliminar
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Eliminar';
-        deleteButton.addEventListener('click', () => eliminarComentario(comentario.id));
-        listItem.appendChild(deleteButton);
-
-        listaComentarios.appendChild(listItem);
-    });
-}
+// Agregar event listener al formulario
+form.addEventListener('submit', agregarComentario);
